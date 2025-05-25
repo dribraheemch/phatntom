@@ -1,3 +1,60 @@
+// Existing variables
+const btnSaveImage = document.getElementById('btn-save-image');
+const encodeCanvas = document.getElementById('encode-canvas');
+
+// Add event listener for save button
+btnSaveImage.addEventListener('click', () => {
+  const imageURI = encodeCanvas.toDataURL('image/png');
+  
+  const link = document.createElement('a');
+  link.href = imageURI;
+  link.download = 'secret_pixel_code.png';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+});
+
+// Inside your btnEncode click handler, after image is drawn and shown:
+
+btnEncode.addEventListener('click', () => {
+  const text = inputText.value.trim();
+  if (!text) {
+    alert('Please enter or paste some text!');
+    return;
+  }
+  const binary = textToBinary(text);
+  const pixelSize = 10;
+  const pixelsPerRow = 32;
+  const totalPixels = binary.length;
+  const rows = Math.ceil(totalPixels / pixelsPerRow);
+
+  encodeCanvas.width = pixelsPerRow * pixelSize;
+  encodeCanvas.height = rows * pixelSize;
+
+  const ctx = encodeCanvas.getContext('2d');
+  ctx.fillStyle = 'black';
+  ctx.fillRect(0, 0, encodeCanvas.width, encodeCanvas.height);
+
+  typingMsg.classList.remove('hidden');
+  encodeCanvas.classList.add('hidden');
+  shareMsg.classList.add('hidden');
+  btnSaveImage.classList.add('hidden');   // Hide save button initially
+
+  setTimeout(() => {
+    typingMsg.classList.add('hidden');
+    encodeCanvas.classList.remove('hidden');
+    shareMsg.classList.remove('hidden');
+    btnSaveImage.classList.remove('hidden'); // Show save button now
+
+    for (let i = 0; i < totalPixels; i++) {
+      const bit = binary[i];
+      ctx.fillStyle = bit === '1' ? 'white' : 'black';
+      const x = (i % pixelsPerRow) * pixelSize;
+      const y = Math.floor(i / pixelsPerRow) * pixelSize;
+      ctx.fillRect(x, y, pixelSize, pixelSize);
+    }
+  }, 2000);
+});
 // UI Elements
 const mainScreen = document.getElementById('main-screen');
 const codeScreen = document.getElementById('code-screen');
