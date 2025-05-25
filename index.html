@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Phantom - Secret Pixel Code</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <h1 id="app-title">Phantom 👻</h1>
+
+  <!-- Main Screen -->
+  <div id="main-screen">
+    <button id="btn-code">🧩 Code</button>
+    <button id="btn-decode">🔍 Decode</button>
+  </div>
+
+  <!-- Code Screen -->
+  <div id="code-screen" class="hidden screen">
+    <div class="button-row">
+      <button class="small-button" id="btn-paste">📋 Paste</button>
+      <button class="small-button" id="btn-encode">🕵️‍♂️ Code</button>
+    </div>
+    <textarea id="input-text" placeholder="Your message will appear here..."></textarea>
+    <div id="typing-msg" class="hidden">Typing message...</div>
+    <canvas id="encode-canvas" class="hidden"></canvas>
+    <div id="share-msg" class="hidden">
+      Share this mysterious image! Right-click to save.
+    </div>
+    <button id="btn-code-back">🔙 Back</button>
+  </div>
+
+  <!-- Decode Screen -->
+  <div id="decode-screen" class="hidden screen">
+    <div class="button-row">
+      <label for="file-upload" class="small-button" style="cursor: pointer;">📁 Upload File</label>
+      <input type="file" id="file-upload" accept="image/*" />
+      <button class="small-button" id="btn-decode-action">🕵️‍♀️ Decode</button>
+    </div>
+    <canvas id="decode-canvas" class="hidden"></canvas>
+    <div id="decoded-text"></div>
+    <button id="btn-decode-back">🔙 Back</button>
+  </div>
+
+<script src="app.js"></script>
+</body>
+</html>
