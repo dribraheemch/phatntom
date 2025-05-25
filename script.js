@@ -118,6 +118,19 @@ btnEncode.addEventListener('click', () => {
       const y = Math.floor(i / pixelsPerRow) * pixelSize;
       ctx.fillRect(x, y, pixelSize, pixelSize);
     }
+
+    // Canvas click se image save karne ka option:
+    encodeCanvas.style.cursor = "pointer";
+    encodeCanvas.onclick = () => {
+      const imageURI = encodeCanvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = imageURI;
+      link.download = 'secret_pixel_code.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
   }, 2000);
 });
 
